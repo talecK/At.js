@@ -691,9 +691,8 @@ Model = (function() {
 View = (function() {
   function View(context) {
     this.context = context;
-    this.$el = $("<div class='atwho-view'><ul class='atwho-view-ul'></ul></div>");
+    this.$el = $('.atwho-view');
     this.timeoutID = null;
-    this.context.$el.append(this.$el);
     this.bindEvent();
   }
 

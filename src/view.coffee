@@ -7,7 +7,7 @@ class View
     @$el = $('.atwho-view');
     @timeoutID = null
     # create HTML DOM of list view if it does not exist
-    @context.$el.append(@$el)
+    #@context.$el.append(@$el)
     this.bindEvent()
 
   init: ->
