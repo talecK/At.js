@@ -4,7 +4,7 @@ class View
 
   # @param controller [Object] The Controller.
   constructor: (@context) ->
-    @$el = $("<div class='atwho-view'><ul class='atwho-view-ul'></ul></div>")
+    @$el = $('.atwho-view');
     @timeoutID = null
     # create HTML DOM of list view if it does not exist
     @context.$el.append(@$el)
