@@ -1,14 +1,4 @@
 .atwho-view {
-    display: none;
-    margin-top: 18px;
-    background: white;
-    color: black;
-    border: 1px solid #DDD;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    min-width: 120px;
-    max-height: 200px;
-    overflow: auto;
     z-index: 11110 !important;
 }
 
@@ -27,18 +17,12 @@
     font:bold;
 }
 .atwho-view ul {
-    /* width: 100px; */
     list-style:none;
-    padding:0;
-    margin:auto;
 }
 .atwho-view ul li {
-    display: block;
-    padding: 5px 10px;
-    border-bottom: 1px solid #DDD;
     cursor: pointer;
-    /* border-top: 1px solid #C8C8C8; */
 }
+
 .atwho-view small {
     font-size: smaller;
     color: #777;

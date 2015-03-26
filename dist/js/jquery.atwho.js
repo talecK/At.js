@@ -35,11 +35,7 @@ App = (function() {
   }
 
   App.prototype.createContainer = function(doc) {
-    var _ref;
-    if ((_ref = this.$el) != null) {
-      _ref.remove();
-    }
-    return $(doc.body).append(this.$el = $("<div class='atwho-container'></div>"));
+    return this.$el = $('.atwho-container');
   };
 
   App.prototype.setupRootElement = function(iframe, asRoot) {
@@ -409,26 +405,6 @@ TextareaController = (function(_super) {
     return this.query = query;
   };
 
-  TextareaController.prototype.rect = function() {
-    var c, iframeOffset, scaleBottom;
-    if (!(c = this.$inputor.caret('offset', this.pos - 1, {
-      iframe: this.app.iframe
-    }))) {
-      return;
-    }
-    if (this.app.iframe && !this.app.iframeAsRoot) {
-      iframeOffset = $(this.app.iframe).offset();
-      c.left += iframeOffset.left;
-      c.top += iframeOffset.top;
-    }
-    scaleBottom = this.app.document.selection ? 0 : 2;
-    return {
-      left: c.left,
-      top: c.top,
-      bottom: c.top + c.height + scaleBottom
-    };
-  };
-
   TextareaController.prototype.insert = function(content, $li) {
     var $inputor, source, startStr, suffix, text;
     $inputor = this.$inputor;
@@ -592,18 +568,6 @@ EditableController = (function(_super) {
     }
   };
 
-  EditableController.prototype.rect = function() {
-    var $iframe, iframeOffset, rect;
-    rect = this.query.el.offset();
-    if (this.app.iframe && !this.app.iframeAsRoot) {
-      iframeOffset = ($iframe = $(this.app.iframe)).offset();
-      rect.left += iframeOffset.left - this.$inputor.scrollLeft();
-      rect.top += iframeOffset.top - this.$inputor.scrollTop();
-    }
-    rect.bottom = rect.top + this.query.el.height();
-    return rect;
-  };
-
   EditableController.prototype.insert = function(content, $li) {
     var range, suffix, suffixNode;
     suffix = (suffix = this.getOpt('suffix')) ? suffix : suffix || "\u00A0";
@@ -741,26 +705,6 @@ View = (function() {
     }
   };
 
-  View.prototype.reposition = function(rect) {
-    var offset, overflowOffset, _ref, _window;
-    _window = this.context.app.iframeAsRoot ? this.context.app.window : window;
-    if (rect.bottom + this.$el.height() - $(_window).scrollTop() > $(_window).height()) {
-      rect.bottom = rect.top - this.$el.height();
-    }
-    if (rect.left > (overflowOffset = $(_window).width() - this.$el.width() - 5)) {
-      rect.left = overflowOffset;
-    }
-    offset = {
-      left: rect.left,
-      top: rect.bottom
-    };
-    if ((_ref = this.context.callbacks("beforeReposition")) != null) {
-      _ref.call(this.context, offset);
-    }
-    this.$el.offset(offset);
-    return this.context.trigger("reposition", [offset]);
-  };
-
   View.prototype.next = function() {
     var cur, next;
     cur = this.$el.find('.cur').removeClass('cur');
@@ -768,10 +712,7 @@ View = (function() {
     if (!next.length) {
       next = this.$el.find('li:first');
     }
-    next.addClass('cur');
-    return this.$el.animate({
-      scrollTop: Math.max(0, cur.innerHeight() * (next.index() + 2) - this.$el.height())
-    }, 150);
+    return next.addClass('cur');
   };
 
   View.prototype.prev = function() {
@@ -781,25 +722,17 @@ View = (function() {
     if (!prev.length) {
       prev = this.$el.find('li:last');
     }
-    prev.addClass('cur');
-    return this.$el.animate({
-      scrollTop: Math.max(0, cur.innerHeight() * (prev.index() + 2) - this.$el.height())
-    }, 150);
+    return prev.addClass('cur');
   };
 
   View.prototype.show = function() {
-    var rect;
     if (this.stopShowing) {
       this.stopShowing = false;
       return;
     }
     if (!this.visible()) {
       this.$el.show();
-      this.$el.scrollTop(0);
-      this.context.trigger('shown');
-    }
-    if (rect = this.context.rect()) {
-      return this.reposition(rect);
+      return this.context.trigger('shown');
     }
   };
 
@@ -828,8 +761,8 @@ View = (function() {
       this.hide();
       return;
     }
-    this.$el.find('ul').empty();
-    $ul = this.$el.find('ul');
+    this.$el.empty();
+    $ul = this.$el;
     tpl = this.context.getOpt('displayTpl');
     for (_i = 0, _len = list.length; _i < _len; _i++) {
       item = list[_i];

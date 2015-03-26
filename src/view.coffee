@@ -7,7 +7,6 @@ class View
     @$el = $('.atwho-view');
     @timeoutID = null
     # create HTML DOM of list view if it does not exist
-    #@context.$el.append(@$el)
     this.bindEvent()
 
   init: ->
@@ -42,34 +41,24 @@ class View
       this.hide(e)
     @stopShowing = yes if @context.getOpt("hideWithoutSuffix")
 
-  reposition: (rect) ->
-    _window = if @context.app.iframeAsRoot then @context.app.window else window
-    if rect.bottom + @$el.height() - $(_window).scrollTop() > $(_window).height()
-      rect.bottom = rect.top - @$el.height()
-    if rect.left > overflowOffset = $(_window).width() - @$el.width() - 5
-      rect.left = overflowOffset
-    offset = {left:rect.left, top:rect.bottom}
-    @context.callbacks("beforeReposition")?.call(@context, offset)
-    @$el.offset offset
-    @context.trigger "reposition", [offset]
 
   next: ->
     cur = @$el.find('.cur').removeClass('cur')
     next = cur.next()
     next = @$el.find('li:first') if not next.length
     next.addClass 'cur'
-    @$el.animate {
-      scrollTop: Math.max 0, cur.innerHeight() * (next.index() + 2) - @$el.height()
-      }, 150
+#    @$el.animate {
+#      scrollTop: Math.max 0, cur.innerHeight() * (next.index() + 2) - @$el.height()
+#      }, 150
 
   prev: ->
     cur = @$el.find('.cur').removeClass('cur')
     prev = cur.prev()
     prev = @$el.find('li:last') if not prev.length
     prev.addClass 'cur'
-    @$el.animate {
-      scrollTop: Math.max 0, cur.innerHeight() * (prev.index() + 2) - @$el.height()
-      }, 150
+#    @$el.animate {
+#      scrollTop: Math.max 0, cur.innerHeight() * (prev.index() + 2) - @$el.height()
+#      }, 150
 
   show: ->
     if @stopShowing
@@ -77,9 +66,8 @@ class View
       return
     if not this.visible()
       @$el.show()
-      @$el.scrollTop 0
+#      @$el.scrollTop 0
       @context.trigger 'shown'
-    this.reposition(rect) if rect = @context.rect()
 
   hide: (e, time) ->
     return if not this.visible()
@@ -97,8 +85,8 @@ class View
       this.hide()
       return
 
-    @$el.find('ul').empty()
-    $ul = @$el.find('ul')
+    @$el.empty()
+    $ul = @$el
     tpl = @context.getOpt('displayTpl')
 
     for item in list

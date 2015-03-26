@@ -11,9 +11,7 @@ class App
     this.listen()
 
   createContainer: (doc) ->
-    @$el?.remove()
-    $ doc.body
-      .append @$el = $ "<div class='atwho-container'></div>"
+    @$el = $('.atwho-container')
 
   setupRootElement: (iframe, asRoot=false) ->
     if iframe

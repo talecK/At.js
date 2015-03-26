@@ -19,18 +19,6 @@ class TextareaController extends Controller
 
     @query = query
 
-  # Get offset of current at char(`flag`)
-  #
-  # @return [Hash] the offset which look likes this: {top: y, left: x, bottom: bottom}
-  rect: ->
-    return if not c = @$inputor.caret('offset', @pos - 1, {iframe: @app.iframe})
-    if @app.iframe and not @app.iframeAsRoot
-      iframeOffset = $(@app.iframe).offset()
-      c.left += iframeOffset.left
-      c.top += iframeOffset.top
-    scaleBottom = if @app.document.selection then 0 else 2
-    {left: c.left, top: c.top, bottom: c.top + c.height + scaleBottom}
-
   # Insert value of `data-value` attribute of chosen item into inputor
   #
   # @param content [String] string to insert

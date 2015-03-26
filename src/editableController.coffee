@@ -113,17 +113,6 @@ class EditableController extends Controller
           @_setRange "after", @_unwrap $query.text($query.text()).contents().first()
       null
 
-  # Get offset of current at char(`flag`)
-  #
-  # @return [Hash] the offset which look likes this: {top: y, left: x, bottom: bottom}
-  rect: ->
-    rect = @query.el.offset()
-    if @app.iframe and not @app.iframeAsRoot
-      iframeOffset = ($iframe = $ @app.iframe).offset()
-      rect.left += iframeOffset.left - @$inputor.scrollLeft()
-      rect.top += iframeOffset.top - @$inputor.scrollTop()
-    rect.bottom = rect.top + @query.el.height()
-    rect
 
   # Insert value of `data-value` attribute of chosen item into inputor
   #
