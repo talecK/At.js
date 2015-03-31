@@ -17,7 +17,7 @@ class View
     @$el.remove()
 
   bindEvent: ->
-    $menu = @$el.find('ul')
+    $menu = @$el
     $menu.on 'mouseenter.atwho-view','li', (e) ->
       $menu.find('.cur').removeClass 'cur'
       $(e.currentTarget).addClass 'cur'

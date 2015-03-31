@@ -1,30 +1,14 @@
-.atwho-view {
-    z-index: 11110 !important;
-}
-
 .atwho-view .cur {
     background: #3366FF;
     color: white;
 }
-.atwho-view .cur small {
-    color: white;
-}
-.atwho-view strong {
-    color: #3366FF;
-}
-.atwho-view .cur strong {
-    color: white;
-    font:bold;
-}
+
 .atwho-view ul {
-    list-style:none;
-}
-.atwho-view ul li {
-    cursor: pointer;
+    list-style: none;
 }
 
-.atwho-view small {
-    font-size: smaller;
-    color: #777;
-    font-weight: normal;
+.atwho-view ul li {
+    cursor: pointer;
+    display: inline;
 }
+

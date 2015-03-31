@@ -674,7 +674,7 @@ View = (function() {
 
   View.prototype.bindEvent = function() {
     var $menu;
-    $menu = this.$el.find('ul');
+    $menu = this.$el;
     return $menu.on('mouseenter.atwho-view', 'li', function(e) {
       $menu.find('.cur').removeClass('cur');
       return $(e.currentTarget).addClass('cur');
