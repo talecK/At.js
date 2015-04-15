@@ -731,6 +731,7 @@ View = (function() {
       return;
     }
     if (!this.visible()) {
+      this.$el.parent('.atwho-container').show();
       this.$el.show();
       return this.context.trigger('shown');
     }
@@ -743,6 +744,7 @@ View = (function() {
     }
     if (isNaN(time)) {
       this.$el.hide();
+      this.$el.parent('.atwho-container').hide();
       return this.context.trigger('hidden', [e]);
     } else {
       callback = (function(_this) {

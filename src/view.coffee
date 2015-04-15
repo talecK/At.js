@@ -65,6 +65,7 @@ class View
       @stopShowing = false
       return
     if not this.visible()
+      @$el.parent('.atwho-container').show()
       @$el.show()
 #      @$el.scrollTop 0
       @context.trigger 'shown'
@@ -72,8 +73,9 @@ class View
   hide: (e, time) ->
     return if not this.visible()
     if isNaN(time)
-      @$el.hide()
-      @context.trigger 'hidden', [e]
+        @$el.hide()
+        @$el.parent('.atwho-container').hide()
+        @context.trigger 'hidden', [e]
     else
       callback = => this.hide()
       clearTimeout @timeoutID
